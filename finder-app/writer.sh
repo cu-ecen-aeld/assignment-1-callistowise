@@ -3,11 +3,18 @@
 writefile="$1"
 writestr="$2"
 
+if [ $# -lt 1 ]; then
+    echo "Error: no args provided" >&2
+    exit 1
+fi
+
 # Validate arguments
 if [ $# -lt 2 ]; then
     echo "Error: need 2 arguments: <file path> <string>" >&2
     exit 1
 fi
+
+
 
 # Create directory path if it doesn't exist
 dirpath=$(dirname "$writefile")

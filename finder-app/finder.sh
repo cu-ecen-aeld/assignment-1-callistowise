@@ -19,11 +19,11 @@ else
 fi
 
 if [ -d "$filesdir" ]; then
-    echo "${filesdir} is a directory"
+    echo "${filesdir} is a directory" >&2
 fi
 
 X=$(find $filesdir -type f | wc -l)
-Y=$(grep -r "pattern" $filesdir | wc -l)
+Y=$(grep -r ${searchstr} $filesdir | wc -l)
 
 MATCHSTR="The number of files are ${X} and the number of matching lines are ${Y}"
 

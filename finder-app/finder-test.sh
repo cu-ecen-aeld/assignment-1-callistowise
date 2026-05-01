@@ -34,7 +34,8 @@ rm -rf "${WRITEDIR}"
 # create $WRITEDIR if not assignment1
 #assignment=`cat ../conf/assignment.txt`
 assignment='/home/alphawizard/Documents/_github_projects/linux_intro_coursera/assignment_1/conf/assignment.txt'
-
+# remove temporary directories
+rm -rf /tmp/aeld-data
 if [ $assignment != 'assignment1' ]
 then
 	mkdir -p "$WRITEDIR"
@@ -56,15 +57,14 @@ fi
 for i in $( seq 1 $NUMFILES)
 do
 	#./writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
-	./finder-app/writer.sh  "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	./writer.sh  "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 #"./writer.sh" "$WRITEDIR/${username}.txt" "$WRITESTR"
 #./finder-app/writer.sh /home/alphawizard/Documents/_github_projects/linux_intro_coursera/assignment_1/finder-app/somenewfile.txt writethis
 
-OUTPUTSTRING=$(./finder-app/finder.sh "$WRITEDIR" "$WRITESTR")
+OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
 
-# remove temporary directories
-rm -rf /tmp/aeld-data
+
 
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
@@ -73,5 +73,7 @@ if [ $? -eq 0 ]; then
 	exit 0
 else
 	echo "failed: expected  ${MATCHSTR} in ${OUTPUTSTRING} but instead found"
+	# failed: expected  The number of files are 10 and the number of matching lines are 10 in /tmp/aeld-data is a directory
+	#                   The number of files are 10 and the number of matching lines are 0 but instead found
 	exit 1
 fi
